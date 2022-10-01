@@ -8,11 +8,11 @@ string customToLower(string word)
 {
 
 	for (unsigned int i = 0; i < word.length(); i++)
-		if (word[i] == 'ВЁ')
+		if (word[i] == 'Ё')
 		{
 			word[i] += 16;
 		}
-		else if (word[i] >= 'ГЂ' && word[i] <= 'Гџ')
+		else if (word[i] >= 'А' && word[i] <= 'Я')
 		{
 			word[i] += 32;
 		}
@@ -22,11 +22,11 @@ string customToLower(string word)
 
 char customToUpper(char letter)
 {
-	if (letter == 'Вё')
+	if (letter == 'ё')
 	{
 		letter -= 16;
 	}
-	else if (letter >= 'Г ' && letter <= 'Гї')
+	else if (letter >= 'а' && letter <= 'я')
 	{
 		letter -= 32;
 	}
@@ -40,5 +40,7 @@ int main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	string secondBranch = "branch_2";
+	int a = 1;
+
+	string main = "Первый коммит мастера";
 }
