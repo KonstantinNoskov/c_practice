@@ -41,4 +41,6 @@ int main()
 	SetConsoleOutputCP(1251);
 
 	int a = 1;
+
+	string main = "Первый коммит мастера";
 }
