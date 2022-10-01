@@ -8,11 +8,11 @@ string customToLower(string word)
 {
 
 	for (unsigned int i = 0; i < word.length(); i++)
-		if (word[i] == '¨')
+		if (word[i] == 'Â¨')
 		{
 			word[i] += 16;
 		}
-		else if (word[i] >= 'À' && word[i] <= 'ß')
+		else if (word[i] >= 'Ã€' && word[i] <= 'ÃŸ')
 		{
 			word[i] += 32;
 		}
@@ -22,11 +22,11 @@ string customToLower(string word)
 
 char customToUpper(char letter)
 {
-	if (letter == '¸')
+	if (letter == 'Â¸')
 	{
 		letter -= 16;
 	}
-	else if (letter >= 'à' && letter <= 'ÿ')
+	else if (letter >= 'Ã ' && letter <= 'Ã¿')
 	{
 		letter -= 32;
 	}
@@ -40,5 +40,5 @@ int main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	int a = 1;
+	string secondBranch = "branch_3";
 }
