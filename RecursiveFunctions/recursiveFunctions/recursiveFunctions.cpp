@@ -39,7 +39,7 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
-    cout << F(667) << endl;
+    cout << F(288) << endl;
    
 }
 
