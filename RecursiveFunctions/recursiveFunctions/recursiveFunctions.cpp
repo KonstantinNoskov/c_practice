@@ -33,24 +33,24 @@ int NextPrim(int n)
 
 
 
-bool isPrim(int n)
+void isPrim(int num)
 {
     int i = 2;
     bool isSimple = true;
 
-    while (i * i <= n)
+    while (i <= sqrt(num))
     {   
-       
-        if (n % i == 0) {
-            
+        
+        if (num % i == 0) {
             isSimple = false;
+            break;    
         }
-        /*out << "i: " << i << " квадрат i: " << i * i << endl;
-        simple = (n % i == 0) ? false : true;*/
+        cout << i << endl;
         i++;
-    }
-    
-    return isSimple;
+    } 
+   
+    (isSimple) ? cout << num << " - это простое число." : cout << num << " - это сложное число.";
+    cout << endl;  
 }
 
 int main()
@@ -58,11 +58,13 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
+    int num = 18;
 
-    int n = 2;
-    cout << "Prim: " << NextPrim(n) << endl;
-    cout << "isPrim: " << isPrim(n) << endl;
+    cout << "Prim: " << Prim(num) << endl;
+    cout << "isPrim: " << endl;
+    isPrim(num);
     
+ 
 }
 
 
