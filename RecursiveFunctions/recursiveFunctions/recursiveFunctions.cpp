@@ -5,6 +5,8 @@
 using namespace std;
 
 
+int NextPrim(int n);
+
 bool Prim(int j)
 {
     int k = 2; 
@@ -17,12 +19,38 @@ bool Prim(int j)
     return (j % k == 0) ? false : true;
 }
 
-
-bool isPrim(int j)
+int NextPrim(int n)
 {
-    int k = 2;
+    int p = n + 1;
 
-    return (j % k == 0) ? false : true;
+    while (!Prim(p))
+    {
+        ++p;
+    }
+
+    return p;
+}
+
+
+
+bool isPrim(int n)
+{
+    int i = 2;
+    bool isSimple = true;
+
+    while (i * i <= n)
+    {   
+       
+        if (n % i == 0) {
+            
+            isSimple = false;
+        }
+        /*out << "i: " << i << " квадрат i: " << i * i << endl;
+        simple = (n % i == 0) ? false : true;*/
+        i++;
+    }
+    
+    return isSimple;
 }
 
 int main()
@@ -30,7 +58,11 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
-    cout << isPrim(21) << endl;
+
+    int n = 2;
+    cout << "Prim: " << NextPrim(n) << endl;
+    cout << "isPrim: " << isPrim(n) << endl;
+    
 }
 
 
