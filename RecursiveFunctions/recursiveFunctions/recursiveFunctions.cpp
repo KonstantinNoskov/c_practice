@@ -401,7 +401,7 @@ void DegreeAddition(int firstNum, int firstDenom, int secondNum, int secondDenom
 }
 
 
-int RecursiveFunc_1(int n)
+void RecursiveFunc_1(int n)
 {
     
     if (n < 0) 
@@ -416,7 +416,9 @@ int RecursiveFunc_1(int n)
         }
         cout << endl;
 
-       return n - RecursiveFunc_1(n - 1);
+    
+
+       cout << "*" << endl;
     }
 }
 
