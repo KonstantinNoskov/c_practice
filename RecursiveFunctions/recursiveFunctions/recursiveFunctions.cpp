@@ -401,24 +401,22 @@ void DegreeAddition(int firstNum, int firstDenom, int secondNum, int secondDenom
 }
 
 
+void stroka_symbol(short num, char symbol) // Вспомогательная функция которая печатает заданный символ заданное кол-во раз
+{
+    for (short i = 1; i <= num; ++i)
+    {
+        cout << symbol;
+    }
+}
+
 void RecursiveFunc_1(int n)
 {
     
-    if (n < 0) 
+    while (n > 1)
     {
-       return 0;
-    }
-    else 
-    {   
-        for (int i = 0; i < n; i++) 
-        {   
-            cout << "*";
-        }
-        cout << endl;
+        stroka_symbol(n, '*');
 
-    
 
-       cout << "*" << endl;
     }
 }
 
