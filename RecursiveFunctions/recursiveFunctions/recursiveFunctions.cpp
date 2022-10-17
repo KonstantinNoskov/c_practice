@@ -409,15 +409,32 @@ void stroka_symbol(short num, char symbol) // Вспомогательная ф�
     }
 }
 
-void RecursiveFunc_1(int n)
+void sandwatch_rec_func(short currentStringNum, short starNum)
 {
-    
-    while (n > 1)
-    {
-        stroka_symbol(n, '*');
+    if (starNum > 0)
+    {   // Вызываем верхную часть таблицы с указанным кол-вом...
+        cout << "Строчка: " << currentStringNum << "\tЗвезды: " << starNum << endl;
 
+        stroka_symbol(currentStringNum, ' '); // ...пробелов..
+        stroka_symbol(starNum, '*'); // ...и звезд.
+        cout << endl; // Переходим на след строчку
 
+        sandwatch_rec_func(currentStringNum + 1, starNum - 2); // Повторяем вывод увеличивая номер строки и уменьшая кол-во звезд на 2.
+
+        stroka_symbol(currentStringNum, ' ');
+        stroka_symbol(starNum, '*');
+        cout << endl;
     }
+}
+
+
+void RecursiveFunc_1(int n) 
+{   
+
+    int 
+        a1 = -10,
+        a2 = 2;
+
 }
 
 
@@ -487,7 +504,7 @@ int main()
     cout << endl;
     
     cout << "________________________RecursiveFunc_1________________________ " << endl;
-    cout << RecursiveFunc_1(7) << endl;  
+    RecursiveFunc_1(7);  
 }
 
 
