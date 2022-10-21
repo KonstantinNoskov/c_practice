@@ -6,31 +6,6 @@
 using namespace std;
 
 
-//void mirrorString()
-//{  
-//    ifstream inFile("f.txt");
-//    ofstream outFile("g.txt");
-//
-//    string s; 
-//
-//    while (!inFile.eof())
-//    {
-//        getline(inFile, s);
-//        
-//        for (unsigned int i = 0; i < s.length() / 2; i++)
-//        {
-//            char a = s[i];
-//            s[i] = s[s.length() - 1 - i];
-//            s[s.length() - 1 - i] = a;
-//        }
-//        outFile << s << endl;
-//        cout << s << endl;
-//    }
-//    
-//    inFile.close();
-//    outFile.close();
-//}
-
 
 void func2()
 {
@@ -115,20 +90,46 @@ void func3()
 
 }
 
+
+/*  Задача 1.1
+        */  
+
+
+void sumSpecString(char letter)
+{
+    ifstream in("in.txt");
+    string str;
+
+    char
+        upperCase,
+        lowerCase;
+
+    int
+        sum = 0;
+
+    while (in.peek() != EOF)
+    {   
+        getline(in, str);
+
+        if (str[0] == 'h' || str[0] == 'H')
+        {
+            sum++;
+        }
+    }
+
+    in.close();
+    cout << "Кол-во строк начинающихся с буквы '" << letter << "' = " << sum << endl;
+}
+
 // Выводим результаты функций
 int main()
 {   
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
-    cout << "_______________________mirrorString________________________\n" << endl;
-    //mirrorString();
+
+    cout << "_________________________sumSpecString_________________________" << endl;
+    sumSpecString('h');
     cout << endl;
 
-    //func2();
-    //cPlus_func();
-
-    cout << "_______________________func3________________________\n" << endl;
-    func3();
-    cout << endl;
 }
