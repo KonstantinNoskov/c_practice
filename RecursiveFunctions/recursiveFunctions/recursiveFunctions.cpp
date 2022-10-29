@@ -6,8 +6,44 @@
 using namespace std;
 
 
+char toUpperCase(char letter)
+{   
+    if (letter == 'ё')
+    {
+        letter -= 16;
+    }
+    else if (letter >= 'а' && letter <= 'я')
+    {
+        letter -= 32;
+    }
+    else if (letter >= 'a' && letter <= 'z')
+    {
+        letter -= 32;
+    }
 
-void func2()
+    return letter;
+}
+
+char toLowerCase(char letter)
+{
+    if (letter == 'Ё')
+    {
+        letter += 16;
+    }
+    else if (letter >= 'А' && letter <= 'Я')
+    {
+        letter += 32;
+    }
+    else if (letter >= 'A' && letter <= 'Z')
+    {
+        letter += 32;
+    }
+
+    return letter;
+}
+
+
+/*void func2()
 {
 
     ifstream in("f.txt");
@@ -88,48 +124,58 @@ void func3()
 
     in.close();
 
-}
+} */
 
 
-/*  Задача 1.1
-        */  
+// Задача 1.1 Поменять местами целые числа двух файлов.
+        
+void sumSpecString(int n)
+{   
+
+    string
+        inOutMidPath = "inOutMiddle.txt",
+        inOut1Path = "inOut1.txt",
+        inOut2Path = "inOut2.txt",
+        bin1Path = "bin1.dat",
+        bin2Path = "bin2.dat";
+
+    fstream 
+        inOut1(inOut1Path),
+        inOut2(inOut2Path),
+        inOutMid(inOutMidPath),
+        bin2(bin2Path);
 
 
-void sumSpecString(char letter)
-{
-    ifstream in("in.txt");
-    string str;
-
-    char
-        upperCase,
-        lowerCase;
+    ifstream bin1(bin1Path, ios::binary);
 
     int
-        sum = 0;
+        i;
 
-    while (in.peek() != EOF)
-    {   
-        getline(in, str);
+   /* for (i = 1; i <= n; i++)
+    {
+        bin1.write((char *)&i, sizeof(int));
+    }*/
 
-        if (str[0] == 'h' || str[0] == 'H')
-        {
-            sum++;
-        }
-    }
+    bin1.read((char*)&i, sizeof(int));
 
-    in.close();
-    cout << "Кол-во строк начинающихся с буквы '" << letter << "' = " << sum << endl;
+   
+    cout << i << endl;
+
+    inOut1.close();
+    inOut2.close();
+    inOutMid.close();
+    bin1.close();
+    bin2.close();
 }
 
 // Выводим результаты функций
 int main()
 {   
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
+    //SetConsoleCP(1251);
+    //SetConsoleOutputCP(1251);
 
-
-    cout << "_________________________sumSpecString_________________________" << endl;
-    sumSpecString('h');
+    
+    sumSpecString(5);
     cout << endl;
 
 }
