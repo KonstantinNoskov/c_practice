@@ -24,6 +24,26 @@ char toUpperCase(char letter)
 
     return letter;
 }
+string toUpperCase(string text)
+{
+    for (int i = 0; i < text.length(); i++) {
+
+        if (text[i] == 'ё')
+        {
+            text[i] -= 16;
+        }
+        else if (text[i] >= 'а' && text[i] <= 'я')
+        {
+            text[i] -= 32;
+        }
+        else if (text[i] >= 'a' && text[i] <= 'z')
+        {
+            text[i] -= 32;
+        }
+    }
+
+    return text;
+}
 
 char toLowerCase(char letter)
 {
@@ -41,6 +61,46 @@ char toLowerCase(char letter)
     }
 
     return letter;
+}
+string toLowerCase(string text)
+{   
+    for (int i = 0; i < text.length(); i++) {
+        
+        if (text[i] == 'Ё')
+        {
+            text[i] += 16;
+        }
+        else if (text[i] >= 'А' && text[i] <= 'Я')
+        {
+            text[i] += 32;
+        }
+        else if (text[i] >= 'A' && text[i] <= 'Z')
+        {
+            text[i] += 32;
+        }
+    }
+    return text;
+}
+
+
+template <typename text> string toLowerCase(text) {
+
+    for (int i = 0; i < text.length(); i++) {
+
+        if (text[i] == 'Ё')
+        {
+            text[i] += 16;
+        }
+        else if (text[i] >= 'А' && text[i] <= 'Я')
+        {
+            text[i] += 32;
+        }
+        else if (text[i] >= 'A' && text[i] <= 'Z')
+        {
+            text[i] += 32;
+        }
+    }
+    return text;
 }
 
 class timer
@@ -156,7 +216,7 @@ double dlina(point a, point b) { // вспомогательная функци�
     return result;
 }
 
-// Функция находит все точки которые находятся в радиусе шара
+ //Функция находит все точки которые находятся в радиусе шара
 void PointsInRadius(double pointCenter, double radius, int num) {
     point
         circle,
@@ -329,8 +389,6 @@ void DistancePoint(int num, int centerPos) {
 
 }
 
-
-
 void MaxDistanceBetween(int num) {
     point
         pointArray[5],
@@ -374,23 +432,23 @@ void MaxDistanceBetween(int num) {
     cout << "Расстояние между наиболее удаленными друг от друга точками составляет: " << maxDistance << endl;
 }
 
-void maxPointsInRadius(int radius, int pointsNum) {
+void maxPointsInRadius(double radius, int pointsNum) {
 
     point 
-        radiusPoint,
+        surfacePoint,
         pointsArray[10];
 
     int
         num = pointsNum, //Кол-во заданных точек 
-        maxPoint = 0,
-        maxPointIncount = 0,
+        maxPoint = 0, // Номер точки с наибольшим кол-вом точек в своем радиусе
+        maxPointIncount = 0, // Наибольшее кол-во точек в радиусе среди всех точек массива
         pointInCount; // Считаем кол-во точек в радиусе проверяемой точки 
 
     double
         step = 0,
-        RadiusDistance; //Тут храним расстояние между исходной точкой и точкой на радиусе
+        Radius; //Тут храним расстояние между исходной точкой и точкой на поверхности (радиус)
    
-    //Присваиваем всем точкам массива координаты с повышением на 1
+    //Присваиваем координаты всем точкам массива 
     cout << "Введите координаты точек: " << endl;
     for (int i = 0; i < num; i++) {
 
@@ -405,15 +463,15 @@ void maxPointsInRadius(int radius, int pointsNum) {
 
     for (int i = 0; i < num; i++) {
 
-        radiusPoint.x = pointsArray[i].x + radius;
-        radiusPoint.y = pointsArray[i].y + radius;
-        radiusPoint.z = pointsArray[i].z + radius;
+        surfacePoint.x = pointsArray[i].x + radius;
+        surfacePoint.y = pointsArray[i].y + radius;
+        surfacePoint.z = pointsArray[i].z + radius;
 
-        RadiusDistance = dlina(pointsArray[i], radiusPoint); 
+        Radius = dlina(surfacePoint, pointsArray[i]);
         
         cout << "Координаты точки №" << i+1 << ": " << pointsArray[i].x << endl;
-        cout << "Координаты точки радиуса: " << radiusPoint.x << endl;
-        cout << "Расстояние от центра до радиуса исходной точки: " << RadiusDistance << endl;
+        cout << "Координаты точки радиуса: " << surfacePoint.x << endl;
+        cout << "Расстояние от центра до радиуса исходной точки: " << Radius << endl;
 
         cout << endl;
 
@@ -422,8 +480,9 @@ void maxPointsInRadius(int radius, int pointsNum) {
 
             cout << "Расстояние от точки №" << i+1 << " до точки №" << j+1 << ": " << dlina(pointsArray[i], pointsArray[j]) << " - ";
             
-            //Если расстояение до другой точки меньше радиуса значит точка лежит в нем и мы инкременируем счетчик точек.
-            if (dlina(pointsArray[i], pointsArray[j]) <= RadiusDistance && i != j) {
+            // Если расстояние до другой точки меньше радиуса значит точка лежит в нем и мы инкременируем счетчик точек.
+            // Также проводим проверку чтобы точка не считала саму себя 
+            if (dlina(pointsArray[i], pointsArray[j]) <= Radius && i != j) {
                 pointInCount++;
                 cout << "Добавил счетчик! - " << pointInCount << endl; 
             }
@@ -448,13 +507,234 @@ void maxPointsInRadius(int radius, int pointsNum) {
             cout << endl;
         }
 
-        cout << "След. точка!\n______________________________________________________________\n" << endl;
+        cout << "______________________________________________________________\n" << endl;
         //Если кол-во точек в радиусе заданной точки больше максимального, присваиваем значение и записываем номер этой точки.
         
     }
 
     cout << "Номер точки с наибольшим кол-вом точек в своем радиусе это " << maxPoint << endl;
     cout << "Максимальное кол-во точек в заданном радиусе " << maxPointIncount << endl;
+}
+
+void maxPerimeter(int num) {
+
+    point
+        pointArray[10];
+
+    double
+        perimeter = 0,
+        maxPerimeter = 0,
+        step = 1;
+
+    int
+        i,
+        maxA = 0,
+        maxB = 0,
+        maxC = 0;
+
+    cout << "Введите координаты точек...\n" << endl;
+
+    for (i = 0; i < num; i++) {
+   
+        cin >> step;
+
+        pointArray[i].x = step;
+        pointArray[i].y = step;
+        pointArray[i].z = step;
+
+        //step++;
+    }
+
+
+    for (int i = 0; i < num; i++) {
+
+        cout << "\nЦикл i №" << i+1 << endl;
+
+        for (int j = i+1; j < num; j++) {
+
+            //cout << "\nЦикл j №" << j << endl;
+
+            for (int l = j+1; l < num; l++) {
+
+                //cout << "\nЦикл l №" << l - 1 << endl;
+
+                perimeter = dlina(pointArray[i], pointArray[j]) + dlina(pointArray[j], pointArray[l]) + dlina(pointArray[l], pointArray[i]);
+
+                cout << "\nОт " << pointArray[i].x << " до " << pointArray[j].x << ": " << dlina(pointArray[i], pointArray[j]) << endl;
+                cout << "От " << pointArray[j].x << " до " << pointArray[l].x << ": " << dlina(pointArray[j], pointArray[l]) << endl;
+                cout << "От " << pointArray[l].x << " до " << pointArray[i].x << ": " << dlina(pointArray[l], pointArray[i]) << endl;
+                cout << endl;
+                cout << "Периметр: " << perimeter << endl;
+                cout << "_____________________________________________" << endl;
+
+                if (perimeter > maxPerimeter) {
+
+                    maxPerimeter = perimeter;
+
+                    maxA = pointArray[i].x;
+                    maxB = pointArray[j].x;
+                    maxC = pointArray[l].x;
+                }
+            }
+        }
+    }
+
+    cout << "\nТочки образующие самый большой треугольник это: " << maxA << " " << maxB << " " << maxC << endl;
+    cout << "Максмальный периметр: " << maxPerimeter << endl;
+}
+
+
+struct record {
+
+    string
+        secondName,
+        birth,
+        address,
+        school,
+        endDate;
+
+ 
+    void show() {
+        cout << setw(10) << secondName << setw(10) << birth << setw(15) << address << setw(15) << school << setw(10) << endDate << endl;
+    }
+
+    void print() {
+        output << setw(10) << secondName << setw(10) << birth << setw(15) << address << setw(15) << school << setw(10) << endDate << endl;
+    }
+};
+
+
+void searchStudent() {
+
+    ifstream input("input.txt");
+    ofstream output("output.txt");
+
+    record student[10];
+
+    string filter;
+
+    int num, i, n = 0;
+    
+    cout << setw(50) << "\n\n------------------------ Список учеников ------------------------\n" << endl;
+
+    while (input.peek() != EOF) {
+
+        if (!input) {
+            cout << "Ошибка при открытии файла input.txt!" << endl;
+        }
+
+        else {
+
+            while (input.peek() != EOF) {
+      
+                input >> student[n].secondName;
+                input >> student[n].birth;
+                input >> student[n].address;
+                input >> student[n].school;
+                input >> student[n].endDate;
+
+                student[n].show();
+
+                n++;
+            }
+        }
+    }
+
+    cout << "\nЗадайте параметры поиска: " << endl;
+    cin >> filter;
+    filter = toLowerCase(filter);
+
+
+    if (!output) {
+        cout << "Ошибка при открытии файла output.txt" << endl;
+    }
+    else {
+        for (i = 0; i < n; i++) {
+            
+            if (toLowerCase(student[i].school) == filter) {
+                
+                student[i].print();
+            }
+        }
+    }
+}
+
+void deleteStudent() {
+
+    ifstream input("input.txt");
+    ofstream output("output.txt");
+
+    record student[30];
+
+    string filter;
+    filter = toLowerCase(filter);
+
+    int num, i, j, n = 0;
+    
+    cout << setw(50) << "\n\n------------------------ Список учеников ------------------------\n" << endl;
+
+    while (input.peek() != EOF) {
+
+        if (!input) {
+            cout << "Ошибка при открытии файла input.txt!" << endl;
+        }
+
+        else {
+
+            while (input.peek() != EOF) {
+                
+                input >> student[n].secondName;
+                input >> student[n].birth;
+                input >> student[n].address;
+                input >> student[n].school;
+                input >> student[n].endDate;
+
+                student[n].show();
+
+                n++;
+            }
+        }
+    }
+
+    cout << "\nВведите год окончания школы: " << endl;
+    cin >> filter;
+    filter = toLowerCase(filter);
+
+
+    if (!output) {
+        cout << "Ошибка при открытии файла output.txt" << endl;
+    }
+    else {
+
+        j = 0;
+        
+        for (i = 0; i < n; i++) {
+            
+            if (toLowerCase(student[i].endDate) == filter) {
+                
+                for (j = i; j < n - 1; j++) {
+                    
+                    student[j] = student[j + 1];
+                }
+
+                n--;
+            }
+
+            /*if (toLowerCase(student[i].endDate) != filter) {
+        
+                student[n].print();
+
+            }*/
+        }
+
+        for (i = 0; i < n; i++) {
+            
+            student[i].print();
+        }
+    }
+
+    input.close();
+    output.close();
 }
 
 
@@ -483,7 +763,19 @@ int main()
     cout << endl;
 
     cout << "________________________MaxDistanceBetween________________________" << endl;
-    maxPointsInRadius(2, 5);
+    //maxPointsInRadius(4, 1);
+    cout << endl;
+
+    cout << "________________________maxPerimeter________________________" << endl;
+    //maxPerimeter(5);
+    cout << endl;
+
+    cout << "________________________searchStudent________________________" << endl;
+    //searchStudent();
+    cout << endl;
+
+    cout << "________________________searchStudent________________________" << endl;
+    deleteStudent();
     cout << endl;
     
 }
