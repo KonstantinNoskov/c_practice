@@ -98,10 +98,146 @@ class timer
         std::chrono::time_point<std::chrono::steady_clock> start, end;
 };
 
+void func2()
+{
 
-struct mas {
-    int key;
-    string fio;
+    ifstream in("f.txt");
+    ofstream out("g.txt");
+
+    int i;
+
+    while (in >> i)
+    {    
+
+        if ((i >= 0) && (i % 3 == 0))
+        {   
+            out << setw(5) << i;
+        }
+
+    }
+    in.close();
+    out.close();
+}
+
+void cPlus_func()
+{
+    char symbol;
+    ifstream in("f.txt");
+    ofstream out("g.txt");
+
+    while (in.peek() != EOF)
+    {
+        in.get(symbol);
+
+        if (symbol == 'c' || symbol == 'C')
+        {
+            out << symbol << "++";
+        }
+
+        else
+        {
+            out << symbol;
+        }
+    }
+
+    in.close();
+    out.close();
+}
+
+
+void func3()
+{
+    ofstream out("f.dat", ios::binary);
+    
+    double 
+        a = 0,
+        b = 10,
+        h = 0.5,
+        i;
+    
+    for (i = a; i <= b; i += h)
+    {
+        out.write((char *)&i, sizeof(i));
+    }
+
+    out.close();
+
+
+    ifstream in("f.dat", ios::binary);
+
+    in.seekg(sizeof(double));
+
+    while (in.peek() != EOF)
+    {
+
+        in.read((char*)&i, sizeof(double));
+
+        cout << i << ' ';
+       
+        in.seekg(8, ios::cur);
+    }
+
+    in.close();
+
+} 
+
+// Структура содержит координаты точки в x,y,z плоскостях
+struct point { 
+    double x, y, z;
+};// содержит координаты точки в x,y,z плоскостях
+
+double dlina(point a, point b) { // вспомогательная функция высчитывает расстояние между точками а и б
+
+    double
+        result = sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2) + pow(a.z - b.z, 2));
+
+    //cout << result << "\n" << endl;
+    return result;
+}
+
+ //Функция находит все точки которые находятся в радиусе шара
+void PointsInRadius(double pointCenter, double radius, int num) {
+    point
+        circle,
+        newPoints[10],
+        radius3;
+
+    int
+        k = 0;
+
+    double newPoint = pointCenter;
+
+    circle.x = pointCenter;
+    circle.y = pointCenter;
+    circle.z = pointCenter;
+
+    radius3.x = radius;
+    radius3.y = radius;
+    radius3.z = radius;
+
+
+
+    for (int i = 0; i < num; i++) {
+       
+        newPoints[i].x = newPoint;
+        newPoints[i].y = newPoint;
+        newPoints[i].z = newPoint;
+        
+        newPoint += 1;
+    }
+
+    cout << "Расстояние текущей точки от центра окружности:" << endl;
+
+    for (int i = 0; i < num; i++) {
+        cout << "Точка №" << k + 1 << endl;
+        if (dlina(circle, newPoints[i]) <= dlina(circle, radius3)) {
+            k++; 
+        }
+    }
+
+    cout << "Кол-во точек в радиусе " << radius << " составляет: " << k << endl;   
+    cout << "Время исполнения функции: ";
+}
 
 };
 
