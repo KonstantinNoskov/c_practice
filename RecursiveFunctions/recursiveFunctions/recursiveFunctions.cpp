@@ -106,7 +106,7 @@ int main()
    
     timer st;
 
-    int a = 4;
+    int a = 6;
     int* b = &a;
     
 
