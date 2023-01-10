@@ -40,5 +40,9 @@ int main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	cout << "Это c_practice" << endl;
+	int a = 6;
+	int* b = &a;
+	
+	cout << a << "\t" << &a << "\t" << b << endl;
+
 }
