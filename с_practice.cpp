@@ -40,7 +40,7 @@ int main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	int a = 10;
+	int a = 12;
 	int* b = &a;
 	
 	cout << a << "\t" << &a << "\t" << b << endl;
