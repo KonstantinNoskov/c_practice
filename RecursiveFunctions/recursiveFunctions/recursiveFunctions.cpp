@@ -109,6 +109,7 @@ int main()
     int a = 4;
     int* b = &a;
     
+    // Ветка до revert
 
     cout << a << "\t" << &a << "\t" << *b << endl;
 
